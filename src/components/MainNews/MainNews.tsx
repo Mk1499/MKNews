@@ -1,5 +1,11 @@
-import {View, Text, ImageBackground, FlatList} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  ImageBackground,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import styles from './styles';
 
 const news = [
@@ -27,6 +33,8 @@ const news = [
 ];
 
 export default function MainNews() {
+  const [topNews, setTopNews] = useState(news);
+
   function renderNews(item) {
     return (
       <ImageBackground
@@ -45,14 +53,31 @@ export default function MainNews() {
     );
   }
 
+  function addArticle() {
+    const newArticle = {
+      id: 5,
+      title: 'news 5 title',
+      source: 'source 5',
+      image:
+        'https://t4.ftcdn.net/jpg/02/55/45/55/240_F_255455531_KFMH5soxYp8rqCNYp0plHFC7OBWPOiOY.jpg',
+    };
+
+    setTopNews(prevNews => [...prevNews, newArticle]);
+  }
+
   return (
-    <FlatList
-      data={news}
-      renderItem={({item}) => renderNews(item)}
-      horizontal={true}
-      showsHorizontalScrollIndicator={false}
-      pagingEnabled
-      contentContainerStyle={styles.listContainer}
-    />
+    <View>
+      <FlatList
+        data={topNews}
+        renderItem={({item}) => renderNews(item)}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        contentContainerStyle={styles.listContainer}
+      />
+      <TouchableOpacity onPress={addArticle}>
+        <Text>Add Article</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
