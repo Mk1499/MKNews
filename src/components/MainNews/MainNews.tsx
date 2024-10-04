@@ -8,61 +8,48 @@ import {
 import React, {useState, useEffect} from 'react';
 import styles from './styles';
 
-const news = [
-  {
-    id: 1,
-    title: 'news 1 title',
-    source: 'source 1',
-    image:
-      'https://t3.ftcdn.net/jpg/05/28/86/66/360_F_528866602_aiVwnOnkooTrqo3MgicCf83SVVzt1Gnd.jpg',
-  },
-  {
-    id: 2,
-    title: 'news 2 title',
-    source: 'source 2',
-    image:
-      'https://t4.ftcdn.net/jpg/02/18/86/55/240_F_218865580_c4Pgu6dHHNOJlU9jX61DisF0ZR8GVfcx.jpg',
-  },
-  {
-    id: 3,
-    title: 'news 2 title',
-    source: 'source 3',
-    image:
-      'https://t4.ftcdn.net/jpg/02/55/45/55/240_F_255455531_KFMH5soxYp8rqCNYp0plHFC7OBWPOiOY.jpg',
-  },
-];
+import {ArticleType} from '../../types/ArticleType';
+import {get} from '../../utils/helpers/apiService';
 
 export default function MainNews() {
-  const [topNews, setTopNews] = useState(news);
+  const [topNews, setTopNews] = useState([]);
 
-  function renderNews(item) {
+  useEffect(() => {
+    getTopNews();
+  }, []);
+
+  function getTopNews() {
+    const url = '/top-headlines?country=us';
+
+    get(url)
+      .then(res => {
+        console.log(res.data);
+        const articles = res.data?.articles?.filter(
+          (article: ArticleType) => article?.urlToImage !== null,
+        );
+        setTopNews(articles);
+      })
+      .catch(err => {
+        console.log('request Err : ', err);
+      });
+  }
+
+  function renderNews(item: any) {
     return (
       <ImageBackground
         source={{
-          uri: item.image,
+          uri: item.urlToImage,
         }}
         style={styles.container}
         resizeMode="cover">
         <View style={styles.whiteCont}>
           <View style={styles.redCont}>
-            <Text style={styles.deadlineText}>{item.source}</Text>
+            <Text style={styles.deadlineText}>{item.source?.name}</Text>
           </View>
           <Text style={styles.name}>{item.title}</Text>
         </View>
       </ImageBackground>
     );
-  }
-
-  function addArticle() {
-    const newArticle = {
-      id: 5,
-      title: 'news 5 title',
-      source: 'source 5',
-      image:
-        'https://t4.ftcdn.net/jpg/02/55/45/55/240_F_255455531_KFMH5soxYp8rqCNYp0plHFC7OBWPOiOY.jpg',
-    };
-
-    setTopNews(prevNews => [...prevNews, newArticle]);
   }
 
   return (
@@ -75,9 +62,6 @@ export default function MainNews() {
         pagingEnabled
         contentContainerStyle={styles.listContainer}
       />
-      <TouchableOpacity onPress={addArticle}>
-        <Text>Add Article</Text>
-      </TouchableOpacity>
     </View>
   );
 }
