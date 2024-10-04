@@ -12,7 +12,7 @@ export default function TopNews() {
   }, []);
 
   function getTopNews() {
-    const url = '/everything?q=egypt';
+    const url = '/everything?q=saudi';
 
     get(url)
       .then(res => {
