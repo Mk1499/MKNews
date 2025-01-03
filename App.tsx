@@ -11,14 +11,13 @@ import {SafeAreaView, Text, View} from 'react-native';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import './gesture-handler';
+import MainStack from './src/navigation/mainStack';
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView>
-      <NavigationContainer>
-        <HomeScreen />
-      </NavigationContainer>
-    </SafeAreaView>
+    <NavigationContainer>
+      <MainStack />
+    </NavigationContainer>
   );
 }
 

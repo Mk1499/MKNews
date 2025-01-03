@@ -10,9 +10,14 @@ import styles from './styles';
 
 import {ArticleType} from '../../types/ArticleType';
 import {get} from '../../utils/helpers/apiService';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import ScreenNames from '../../navigation/ScreenNames';
+import {MainStackParamList} from '../../navigation/mainStack';
 
 export default function MainNews() {
   const [topNews, setTopNews] = useState([]);
+  const {navigate} =
+    useNavigation<NavigationProp<MainStackParamList, ScreenNames.HomeScreen>>();
 
   useEffect(() => {
     getTopNews();
@@ -34,21 +39,29 @@ export default function MainNews() {
       });
   }
 
-  function renderNews(item: any) {
+  function gotoArticleDetails(article: ArticleType) {
+    navigate(ScreenNames.ArticleDetails, {
+      article,
+    });
+  }
+
+  function renderNews(item: ArticleType) {
     return (
-      <ImageBackground
-        source={{
-          uri: item.urlToImage,
-        }}
-        style={styles.container}
-        resizeMode="cover">
-        <View style={styles.whiteCont}>
-          <View style={styles.redCont}>
-            <Text style={styles.deadlineText}>{item.source?.name}</Text>
+      <TouchableOpacity onPress={() => gotoArticleDetails(item)}>
+        <ImageBackground
+          source={{
+            uri: item.urlToImage,
+          }}
+          style={styles.container}
+          resizeMode="cover">
+          <View style={styles.whiteCont}>
+            <View style={styles.redCont}>
+              <Text style={styles.deadlineText}>{item.source?.name}</Text>
+            </View>
+            <Text style={styles.name}>{item.title}</Text>
           </View>
-          <Text style={styles.name}>{item.title}</Text>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableOpacity>
     );
   }
 

@@ -1,11 +1,17 @@
-import {View, Text, Image, FlatList} from 'react-native';
+import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {ArticleType} from '../../types/ArticleType';
 import {get} from '../../utils/helpers/apiService';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {MainStackParamList} from '../../navigation/mainStack';
+import ScreenNames from '../../navigation/ScreenNames';
 
 export default function TopNews() {
   const [articles, setArticles] = useState<ArticleType[]>([]);
+
+  const {navigate} =
+    useNavigation<NavigationProp<MainStackParamList, ScreenNames.HomeScreen>>();
 
   useEffect(() => {
     getTopNews();
@@ -27,15 +33,23 @@ export default function TopNews() {
       });
   }
 
+  function gotoArticleDetails(article: ArticleType) {
+    navigate(ScreenNames.ArticleDetails, {
+      article,
+    });
+  }
+
   function renderItem(item: ArticleType) {
     return (
-      <View style={styles.cardCont}>
+      <TouchableOpacity
+        style={styles.cardCont}
+        onPress={() => gotoArticleDetails(item)}>
         <Image
           style={styles.cardArticelImage}
           source={{uri: item.urlToImage}}
         />
         <Text style={styles.cardArticleName}>{item.title}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
