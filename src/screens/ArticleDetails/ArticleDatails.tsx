@@ -11,6 +11,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {MainStackParamList} from '../../navigation/mainStack';
 import ScreenNames from '../../navigation/ScreenNames';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/Entypo';
 
 export default function ArticleDatails() {
   const {goBack} = useNavigation();
@@ -24,7 +25,7 @@ export default function ArticleDatails() {
       <ScrollView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.backBtn} onPress={goBack}>
-            <Text style={styles.goBackText}>Go Back</Text>
+            <Icon name="chevron-thin-left" size={24} color="red" />
           </TouchableOpacity>
         </View>
         <Image

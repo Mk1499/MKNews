@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {fonts} from '../../utils/helpers/constants';
 
 export default StyleSheet.create({
   safeContainer: {
@@ -28,9 +29,11 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
   },
   title: {
-    fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 10,
+    fontFamily: fonts.CairoBold,
   },
-  description: {},
+  description: {
+    fontFamily: fonts.CairoLigh,
+  },
 });
