@@ -1,10 +1,9 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
-import ArticleDatails from '../screens/ArticleDetails/ArticleDatails';
-import ScreenNames from './ScreenNames';
 import {ArticleType} from '../types/ArticleType';
+import AuthStack from './Stacks/Auth.stack';
+import StackNames from './StackNames';
+import MainTabs from './Tabs/MainTabs';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
@@ -14,18 +13,13 @@ export default function MainStack() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={ScreenNames.HomeScreen} component={HomeScreen} />
-      <Stack.Screen
-        name={ScreenNames.ArticleDetails}
-        component={ArticleDatails}
-      />
+      <Stack.Screen name={StackNames.AuthStack} component={AuthStack} />
+      <Stack.Screen name={StackNames.MainTabs} component={MainTabs} />
     </Stack.Navigator>
   );
 }
 
 export type MainStackParamList = {
-  [ScreenNames.HomeScreen]: undefined;
-  [ScreenNames.ArticleDetails]: {
-    article: ArticleType;
-  };
+  [StackNames.AuthStack]: undefined;
+  [StackNames.MainTabs]: undefined;
 };
