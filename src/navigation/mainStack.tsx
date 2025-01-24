@@ -4,6 +4,7 @@ import {ArticleType} from '../types/ArticleType';
 import AuthStack from './Stacks/Auth.stack';
 import StackNames from './StackNames';
 import MainTabs from './Tabs/MainTabs';
+import SharedStack from './Stacks/Shared.stack';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
@@ -15,6 +16,7 @@ export default function MainStack() {
       }}>
       <Stack.Screen name={StackNames.AuthStack} component={AuthStack} />
       <Stack.Screen name={StackNames.MainTabs} component={MainTabs} />
+      <Stack.Screen name={StackNames.SharedStack} component={SharedStack} />
     </Stack.Navigator>
   );
 }

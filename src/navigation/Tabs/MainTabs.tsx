@@ -3,6 +3,8 @@ import ScreenNames from '../ScreenNames';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import FavArticlesScreen from '../../screens/FavArticles/FavArticles.screen';
 import IonicIcons from 'react-native-vector-icons/Ionicons';
+import StackNames from '../StackNames';
+import HomeStack from '../Stacks/Home.stack';
 
 const MyTabs = createBottomTabNavigator();
 
@@ -13,8 +15,8 @@ export default function MainTabs() {
         headerShown: false,
       }}>
       <MyTabs.Screen
-        name={ScreenNames.HomeScreen}
-        component={HomeScreen}
+        name={StackNames.HomeStack}
+        component={HomeStack}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
