@@ -7,6 +7,9 @@ enum ScreenNames {
 
   // Favorite
   FavoritesScreen = 'FavoritesScreen',
+
+  // Settings
+  SettingsScreen = 'SettingsScreen',
 }
 
 export default ScreenNames;
