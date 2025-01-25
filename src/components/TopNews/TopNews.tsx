@@ -23,7 +23,6 @@ export default function TopNews() {
 
     get(url)
       .then(res => {
-        console.log(res.data);
         const articles = res.data?.articles?.filter(
           (article: ArticleType) => article?.urlToImage !== null,
         );
