@@ -12,13 +12,17 @@ import {MainStackParamList} from '../../navigation/mainStack';
 import ScreenNames from '../../navigation/ScreenNames';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Entypo';
+import {useFavStore} from '../../store/useFavStore';
 
 export default function ArticleDatails() {
   const {goBack} = useNavigation();
   const {params} =
     useRoute<RouteProp<MainStackParamList, ScreenNames.ArticleDetails>>();
   const {article} = params ?? {};
+  console.log('ArticleDatails : ', article);
+
   const {description, source, title, urlToImage} = article ?? {};
+  const {addToFavList} = useFavStore();
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -39,6 +43,13 @@ export default function ArticleDatails() {
           <Text style={styles.description}>{description}</Text>
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={styles.addTofavBtn}
+        onPress={() => {
+          addToFavList(article);
+        }}>
+        <Text style={styles.addToFavText}>Add To Fav</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

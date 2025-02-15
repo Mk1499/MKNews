@@ -13,7 +13,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState();
 
   function handleLogin() {
-    if ((userName === 'khaled', password === 'mohamed')) {
+    if (userName === 'Khaled' && password === 'mohamed') {
       navigate(StackNames.MainTabs);
     } else {
       Alert.alert('Invalid username or password');
